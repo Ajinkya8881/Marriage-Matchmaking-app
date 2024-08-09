@@ -1,0 +1,33 @@
+Updated Report: Marriage MatchMaking App
+
+Overview
+The Marriage MatchMaking App is a FastAPI-based application designed to manage user profiles and find potential matches based on user interests. This update includes the addition of new endpoints, enhancements in user data management, and email validation.
+
+**Key Updates**
+
+User Update Endpoint:
+Endpoint: PUT /users/{user_id}
+Functionality: Allows users to update their profile details by specifying the user ID. Users can update fields such as name, age, gender, email, city, and interests.
+Implementation: The endpoint takes an optional UserUpdate schema and updates the user profile accordingly. Interests are handled as a comma-separated string.
+
+User Deletion Endpoint:
+Endpoint: DELETE /users/{user_id}
+Functionality: Provides the ability to delete a user profile based on the user ID.
+Implementation: The endpoint removes the specified user from the database and returns the deleted user's details.
+
+Find Matches for a User:
+Endpoint: GET /users/{user_id}/matches/
+Functionality: Finds potential matches for a user based on shared interests. The endpoint compares the interests of the user with those of other users.
+Implementation: Retrieves the user and their interests, then finds other users with overlapping interests. Returns a list of matching user profiles.
+
+Email Validation:
+Update: Added validation to ensure the email field in user profiles contains valid email addresses.
+Implementation: Utilized EmailStr from pydantic to enforce valid email formats in the UserBase and UserCreate schemas.
+
+Implementation Details
+Database Setup: The app uses SQLite for storage, managed through SQLAlchemy. Tables are created with Base.metadata.create_all(bind=engine).
+Endpoints: The application provides RESTful endpoints to create, read, update, delete user profiles, and find matches based on interests.
+Data Handling: User interests are stored as a comma-separated string in the database but are converted to and from lists in the application logic.
+Error Handling: Custom HTTP exceptions are raised for cases such as duplicate emails and non-existent user profiles.
+
+This update enhances the application’s capabilities by enabling profile modifications, deletions, and match finding while ensuring email validity for user profiles.
